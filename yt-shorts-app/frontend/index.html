@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube → Shorts Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>YouTube → Reels / Shorts</h1>
+    <p class="subtitle">Paste a link. Free local Whisper transcribes it, free Groq AI finds the best moments, ffmpeg cuts + captions them.</p>
+
+    <div id="setupBanner" class="setup-banner hidden">
+      <p><strong>First time here?</strong> This page needs to know where your backend server is running.</p>
+      <input type="url" id="backendUrl" placeholder="https://your-backend.onrender.com">
+      <button id="saveBackend">Save</button>
+      <p class="hint">Deploy the <code>backend/</code> folder to Render first (see README), then paste that URL here. It's saved in this browser so you only do this once.</p>
+    </div>
+
+    <form id="form">
+      <input type="url" id="url" placeholder="https://www.youtube.com/watch?v=..." required>
+
+      <div class="options">
+        <label>Clips
+          <input type="number" id="num_clips" value="5" min="1" max="10">
+        </label>
+        <label>Min length (s)
+          <input type="number" id="min_len" value="20" min="5" max="180">
+        </label>
+        <label>Max length (s)
+          <input type="number" id="max_len" value="60" min="10" max="180">
+        </label>
+      </div>
+      <div class="options">
+        <label class="checkbox"><input type="checkbox" id="burn_captions" checked> Burn in AI captions</label>
+        <label class="checkbox"><input type="checkbox" id="vertical" checked> Crop to 9:16</label>
+      </div>
+
+      <button type="submit" id="submitBtn">Generate Clips</button>
+    </form>
+
+    <div id="progressBox" class="hidden">
+      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+      <p id="statusText">Starting…</p>
+    </div>
+
+    <div id="errorBox" class="hidden error"></div>
+
+    <div id="results" class="results hidden">
+      <h2>Your clips</h2>
+      <div id="clipsGrid" class="clips-grid"></div>
+    </div>
+
+    <p class="footer-link"><a href="#" id="changeBackend">Change backend URL</a></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
