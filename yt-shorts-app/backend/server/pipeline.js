@@ -55,7 +55,7 @@ async function downloadVideo(youtubeUrl, jobId) {
     mergeOutputFormat: "mp4",
     noWarnings: true,
     noCheckCertificates: true,
-    extractorArgs: "youtube:player_client=default,web_embedded",
+    extractorArgs: "youtube:player_client=web_embedded",
     jsRuntimes: "node",
     remoteComponents: "ejs:github",
     ...(cookiesPath ? { cookies: cookiesPath } : {}),
