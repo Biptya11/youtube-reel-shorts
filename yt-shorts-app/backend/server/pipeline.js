@@ -26,14 +26,27 @@ function updateJob(jobs, jobId, patch) {
   jobs[jobId] = { ...jobs[jobId], ...patch };
 }
 
+function ensureCookiesFile() {
+  const b64 = process.env.YTDLP_COOKIES_B64;
+  if (!b64) return null;
+  const cookiesPath = path.join(TMP_DIR, "cookies.txt");
+  if (!fs.existsSync(cookiesPath)) {
+    fs.mkdirSync(TMP_DIR, { recursive: true });
+    fs.writeFileSync(cookiesPath, Buffer.from(b64, "base64").toString("utf-8"));
+  }
+  return cookiesPath;
+}
+
 async function downloadVideo(youtubeUrl, jobId) {
   const outPath = path.join(TMP_DIR, `${jobId}.mp4`);
+  const cookiesPath = ensureCookiesFile();
   await ytdlp(youtubeUrl, {
     output: outPath,
     format: "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best",
     mergeOutputFormat: "mp4",
     noWarnings: true,
     noCheckCertificates: true,
+    ...(cookiesPath ? { cookies: cookiesPath } : {}),
   });
   return outPath;
 }
