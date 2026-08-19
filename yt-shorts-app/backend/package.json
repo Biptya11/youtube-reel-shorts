@@ -16,7 +16,7 @@
     "groq-sdk": "^0.7.0",
     "nodejs-whisper": "^0.1.18",
     "uuid": "^9.0.1",
-    "yt-dlp-exec": "^1.0.2"
+    "yt-dlp-exec": "^3.1.11"
   },
   "engines": {
     "node": ">=18.0.0"
