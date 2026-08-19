@@ -34,6 +34,7 @@ function ensureCookiesFile() {
     fs.mkdirSync(TMP_DIR, { recursive: true });
     fs.copyFileSync(secretFilePath, writablePath);
     return writablePath;
+  const cookiesPath = ensureCookiesFile();
   }
 
   const b64 = process.env.YTDLP_COOKIES_B64;
