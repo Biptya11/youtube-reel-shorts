@@ -12,7 +12,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import ffmpegPath from "ffmpeg-static";
 import ffmpeg from "fluent-ffmpeg";
-import ytdlp from "yt-dlp-exec";
+import ytdlp from "youtube-dl-exec";
 import Groq from "groq-sdk";
 import { nodewhisper } from "nodejs-whisper";
 
