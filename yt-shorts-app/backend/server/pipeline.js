@@ -27,17 +27,22 @@ function updateJob(jobs, jobId, patch) {
 }
 
 function ensureCookiesFile() {
+  const writablePath = path.join(TMP_DIR, "cookies.txt");
   const secretFilePath = "/etc/secrets/cookies.txt";
-  if (fs.existsSync(secretFilePath)) return secretFilePath;
+
+  if (fs.existsSync(secretFilePath)) {
+    fs.mkdirSync(TMP_DIR, { recursive: true });
+    fs.copyFileSync(secretFilePath, writablePath);
+    return writablePath;
+  }
 
   const b64 = process.env.YTDLP_COOKIES_B64;
   if (!b64) return null;
-  const cookiesPath = path.join(TMP_DIR, "cookies.txt");
-  if (!fs.existsSync(cookiesPath)) {
+  if (!fs.existsSync(writablePath)) {
     fs.mkdirSync(TMP_DIR, { recursive: true });
-    fs.writeFileSync(cookiesPath, Buffer.from(b64, "base64").toString("utf-8"));
+    fs.writeFileSync(writablePath, Buffer.from(b64, "base64").toString("utf-8"));
   }
-  return cookiesPath;
+  return writablePath;
 }
 
 async function downloadVideo(youtubeUrl, jobId) {
