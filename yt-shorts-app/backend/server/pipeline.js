@@ -27,6 +27,9 @@ function updateJob(jobs, jobId, patch) {
 }
 
 function ensureCookiesFile() {
+  const secretFilePath = "/etc/secrets/cookies.txt";
+  if (fs.existsSync(secretFilePath)) return secretFilePath;
+
   const b64 = process.env.YTDLP_COOKIES_B64;
   if (!b64) return null;
   const cookiesPath = path.join(TMP_DIR, "cookies.txt");
