@@ -55,6 +55,7 @@ async function downloadVideo(youtubeUrl, jobId) {
     noWarnings: true,
     noCheckCertificates: true,
     extractorArgs: "youtube:player_client=default,web_embedded",
+    jsRuntimes: "node",
     ...(cookiesPath ? { cookies: cookiesPath } : {}),
   });
   return outPath;
