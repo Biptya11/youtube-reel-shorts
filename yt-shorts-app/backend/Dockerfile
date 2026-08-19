@@ -1,4 +1,4 @@
-FROM node:20-bookworm
+FROM node:22-bookworm
 
 # Build tools + Python required by youtube-dl-exec / Whisper
 RUN apt-get update && apt-get install -y --no-install-recommends \
