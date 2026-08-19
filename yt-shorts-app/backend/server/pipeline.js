@@ -54,6 +54,7 @@ async function downloadVideo(youtubeUrl, jobId) {
     mergeOutputFormat: "mp4",
     noWarnings: true,
     noCheckCertificates: true,
+    extractorArgs: "youtube:player_client=default,web_embedded",
     ...(cookiesPath ? { cookies: cookiesPath } : {}),
   });
   return outPath;
